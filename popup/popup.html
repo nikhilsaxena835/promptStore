@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promptStore</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+      <script src="../storage/storage.js"></script>  
+    <div class="container">
+        <header class="header">
+            <h1 class="title"> promptStore</h1>
+            <button class="create-btn" id="createBtn" title="Create New Prompt">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                New
+            </button>
+        </header>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search prompts..." class="search-input">
+        </div>
+
+        <div class="prompts-container" id="promptsContainer">
+            <div class="empty-state" id="emptyState">
+                <p>No prompts yet. Click "New" to create your first prompt!</p>
+            </div>
+        </div>
+
+        <!-- Modal for creating/editing prompts -->
+        <div class="modal" id="promptModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Create New Prompt</h3>
+                    <button class="close-btn" id="closeBtn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="promptTitle" placeholder="Prompt title..." maxlength="100">
+                    <textarea id="promptContent" placeholder="Enter your prompt here..." rows="8"></textarea>
+                    <div class="modal-actions">
+                        <button class="cancel-btn" id="cancelBtn">Cancel</button>
+                        <button class="save-btn" id="saveBtn">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Context menu for prompt options -->
+        <div class="context-menu" id="contextMenu">
+            <div class="context-item" id="editPrompt">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="m18.5 2.5 1.5 1.5L13 11l-4 1 1-4 7.5-7.5z"></path>
+                </svg>
+                Edit
+            </div>
+            <div class="context-item" id="deletePrompt">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3,6 5,6 21,6"></polyline>
+                    <path d="m19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"></path>
+                </svg>
+                Delete
+            </div>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
