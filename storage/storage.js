@@ -1,10 +1,9 @@
-// Storage utility functions for the LLM Prompt Manager
 // This module provides a consistent interface for managing prompt data
-
 class PromptStorage {
-    constructor() {
+    constructor() 
+    {
         this.storageKey = 'prompts';
-        this.maxPrompts = 500; // Maximum number of prompts to store
+        this.maxPrompts = 500;
     }
 
     /**
@@ -41,10 +40,8 @@ class PromptStorage {
                 favorite: false
             };
 
-            // Add to beginning of array (most recent first)
             prompts.unshift(newPrompt);
 
-            // Limit the number of stored prompts
             if (prompts.length > this.maxPrompts) {
                 prompts.splice(this.maxPrompts);
             }
@@ -73,7 +70,6 @@ class PromptStorage {
                 return false;
             }
 
-            // Update the prompt
             prompts[index] = {
                 ...prompts[index],
                 ...updates,

@@ -5,7 +5,7 @@ class PromptManager {
         this.prompts = [];
         this.filteredPrompts = [];
         this.currentEditId = null;
-        this.storage = new PromptStorage(); // Initialize PromptStorage
+        this.storage = new PromptStorage();
         this.init();
     }
 
@@ -15,13 +15,17 @@ class PromptManager {
         this.renderPrompts();
     }
 
-    async loadPrompts() {
-        try {
+    async loadPrompts() 
+    {
+        try 
+        {
             this.prompts = await this.storage.getAllPrompts();
             this.filteredPrompts = [...this.prompts];
-            console.log('Loaded prompts:', this.prompts);
-        } catch (error) {
-            console.error('Error loading prompts:', error);
+            //console.log('Loaded prompts:', this.prompts);
+        } 
+        catch (error) 
+        {
+            //console.error('Error loading prompts:', error);
             this.prompts = [];
             this.filteredPrompts = [];
             this.showToast('Failed to load prompts', 'error');

@@ -161,6 +161,7 @@ browserAPI.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 });
 
+/*
 // === Periodic Cleanup Alarm ===
 browserAPI.alarms.create('cleanup', { periodInMinutes: 60 * 24 });
 
@@ -179,3 +180,4 @@ browserAPI.alarms.onAlarm.addListener(async (alarm) => {
         }
     }
 });
+*/
