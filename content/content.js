@@ -148,7 +148,7 @@
         if (existingSelector) {
             existingSelector.remove();
         }
-        
+
         // Create selector dropdown
         const selector = document.createElement('div');
         selector.className = 'prompt-manager-selector';
@@ -165,58 +165,81 @@
             overflow-y: auto;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         `;
-        
+
         // Position selector
         const buttonRect = button.getBoundingClientRect();
         const scrollY = window.pageYOffset || document.documentElement.scrollTop;
         const scrollX = window.pageXOffset || document.documentElement.scrollLeft;
-        
+
         selector.style.left = (buttonRect.left + scrollX) + 'px';
         selector.style.top = (buttonRect.bottom + 5 + scrollY) + 'px';
-        
+
         // Load and display prompts
         loadPrompts().then(prompts => {
             if (prompts.length === 0) {
-                selector.innerHTML = `
-                    <div style="padding: 20px; text-align: center; color: #64748b; font-size: 14px;">
-                        No prompts found. Click the extension icon to create some!
-                    </div>
-                `;
+                const emptyMsg = document.createElement('div');
+                emptyMsg.style.padding = '20px';
+                emptyMsg.style.textAlign = 'center';
+                emptyMsg.style.color = '#64748b';
+                emptyMsg.style.fontSize = '14px';
+                emptyMsg.textContent = 'No prompts found. Click the extension icon to create some!';
+                selector.appendChild(emptyMsg);
             } else {
-                selector.innerHTML = prompts.map(prompt => `
-                    <div class="prompt-manager-item" data-content="${encodeURIComponent(prompt.content)}" 
-                         style="padding: 12px 16px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background-color 0.2s ease;">
-                        <div style="font-weight: 600; font-size: 14px; color: #1e293b; margin-bottom: 4px;">
-                            ${escapeHtml(prompt.title)}
-                        </div>
-                        <div style="font-size: 12px; color: #64748b; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
-                            ${escapeHtml(prompt.content.substring(0, 100))}${prompt.content.length > 100 ? '...' : ''}
-                        </div>
-                    </div>
-                `).join('');
-                
-                // Add click handlers for prompt items
-                selector.querySelectorAll('.prompt-manager-item').forEach(item => {
+                prompts.forEach(prompt => {
+                    const item = document.createElement('div');
+                    item.className = 'prompt-manager-item';
+                    item.dataset.content = encodeURIComponent(prompt.content);
+                    item.style.padding = '12px 16px';
+                    item.style.borderBottom = '1px solid #f1f5f9';
+                    item.style.cursor = 'pointer';
+                    item.style.transition = 'background-color 0.2s ease';
+
+                    const titleDiv = document.createElement('div');
+                    titleDiv.style.fontWeight = '600';
+                    titleDiv.style.fontSize = '14px';
+                    titleDiv.style.color = '#1e293b';
+                    titleDiv.style.marginBottom = '4px';
+                    titleDiv.textContent = prompt.title;
+
+                    const previewDiv = document.createElement('div');
+                    previewDiv.style.fontSize = '12px';
+                    previewDiv.style.color = '#64748b';
+                    previewDiv.style.overflow = 'hidden';
+                    previewDiv.style.display = '-webkit-box';
+                    previewDiv.style.webkitLineClamp = '2';
+                    previewDiv.style.webkitBoxOrient = 'vertical';
+
+                    const truncatedContent = prompt.content.length > 100
+                        ? prompt.content.substring(0, 100) + '...'
+                        : prompt.content;
+
+                    previewDiv.textContent = truncatedContent;
+
+                    item.appendChild(titleDiv);
+                    item.appendChild(previewDiv);
+
                     item.addEventListener('mouseenter', () => {
                         item.style.backgroundColor = '#f8fafc';
                     });
-                    
+
                     item.addEventListener('mouseleave', () => {
                         item.style.backgroundColor = 'transparent';
                     });
-                    
+
                     item.addEventListener('click', () => {
                         const content = decodeURIComponent(item.dataset.content);
                         insertTextIntoInput(targetInput, content);
                         selector.remove();
                     });
+
+                    selector.appendChild(item);
                 });
             }
         });
-        
+
         // Add to page
         document.body.appendChild(selector);
-        
+
         // Close selector when clicking outside
         const closeSelector = (e) => {
             if (!selector.contains(e.target) && e.target !== button) {
@@ -224,11 +247,12 @@
                 document.removeEventListener('click', closeSelector);
             }
         };
-        
+
         setTimeout(() => {
             document.addEventListener('click', closeSelector);
         }, 100);
     }
+
 
     // Load prompts from storage
     async function loadPrompts() {

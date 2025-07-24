@@ -67,9 +67,6 @@ if (browserAPI.browserAction && browserAPI.browserAction.onClicked) {
             'claude.ai',
             'grok.x.com',
             'gemini.google.com',
-            'you.com',
-            'poe.com',
-            'huggingface.co',
             'perplexity.ai'
         ];
 

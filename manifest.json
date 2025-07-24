@@ -1,19 +1,14 @@
 {
   "manifest_version": 2,
   "name": "promptStore",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Manage and quickly access your favorite LLM prompts across different AI platforms",
   
   "permissions": [
     "storage",
     "activeTab",
     "clipboardWrite",
-    "alarms",
-    "https://chat.openai.com/*",
-    "https://claude.ai/*",
-    "https://grok.x.com/*",
-    "https://gemini.google.com/*",
-    "https://www.perplexity.ai/*"
+    "alarms"
   ],
   
   "background": {

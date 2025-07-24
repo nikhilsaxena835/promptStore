@@ -132,36 +132,64 @@ class PromptManager {
 
         const preview = this.truncateText(prompt.content, 100);
 
-        div.innerHTML = `
-            <div class="prompt-header">
-                <h4 class="prompt-title">${this.escapeHtml(prompt.title)}</h4>
-                <button class="prompt-menu" title="Options">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="1"></circle>
-                        <circle cx="12" cy="5" r="1"></circle>
-                        <circle cx="12" cy="19" r="1"></circle>
-                    </svg>
-                </button>
-            </div>
-            <div class="prompt-preview">${this.escapeHtml(preview)}</div>
-        `;
+        // Header
+        const header = document.createElement('div');
+        header.className = 'prompt-header';
 
-        // Click to copy
+        const title = document.createElement('h4');
+        title.className = 'prompt-title';
+        title.textContent = prompt.title;
+
+        const button = document.createElement('button');
+        button.className = 'prompt-menu';
+        button.title = 'Options';
+
+        // SVG icon
+        const svgNS = "http://www.w3.org/2000/svg";
+        const svg = document.createElementNS(svgNS, "svg");
+        svg.setAttribute("width", "16");
+        svg.setAttribute("height", "16");
+        svg.setAttribute("viewBox", "0 0 24 24");
+        svg.setAttribute("fill", "none");
+        svg.setAttribute("stroke", "currentColor");
+        svg.setAttribute("stroke-width", "2");
+
+        [12, 5, 19].forEach(cy => {
+            const circle = document.createElementNS(svgNS, "circle");
+            circle.setAttribute("cx", "12");
+            circle.setAttribute("cy", cy.toString());
+            circle.setAttribute("r", "1");
+            svg.appendChild(circle);
+        });
+
+        button.appendChild(svg);
+        header.appendChild(title);
+        header.appendChild(button);
+
+        // Preview
+        const previewDiv = document.createElement('div');
+        previewDiv.className = 'prompt-preview';
+        previewDiv.textContent = preview;
+
+        // Compose full element
+        div.appendChild(header);
+        div.appendChild(previewDiv);
+
+        // Events
         div.addEventListener('click', (e) => {
             if (!e.target.closest('.prompt-menu')) {
                 this.copyPrompt(prompt);
             }
         });
 
-        // Menu button
-        const menuBtn = div.querySelector('.prompt-menu');
-        menuBtn.addEventListener('click', (e) => {
+        button.addEventListener('click', (e) => {
             e.stopPropagation();
             this.showContextMenu(e, prompt.id);
         });
 
         return div;
     }
+
 
     async copyPrompt(prompt) {
         try {

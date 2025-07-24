@@ -13,6 +13,7 @@ body {
 
 .container {
     width: 400px;
+    min-height: 200px; /* Add minimum height */
     max-height: 600px;
     overflow: hidden;
     display: flex;
@@ -79,6 +80,7 @@ body {
 .prompts-container {
     flex: 1;
     overflow-y: auto;
+    min-height: 150px; /* Add minimum height to prevent collapse */
     max-height: 400px;
     background: white;
 }
@@ -149,6 +151,10 @@ body {
     text-align: center;
     padding: 60px 20px;
     color: #64748b;
+    min-height: 150px; /* Ensure consistent height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Modal Styles - FIXED VERSION */
