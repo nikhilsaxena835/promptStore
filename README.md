@@ -63,9 +63,7 @@ They cannot directly access page scripts but can exchange messages with them usi
 
 ## Web Accessible Resources
 
-Web accessible resources are images, HTML, CSS, and JavaScript that you include in the extension and want to make accessible to content and page scripts. They can be referenced using a special URI scheme.
-
-For example, if a content script wants to insert images into web pages, you include them in the extension, mark them as web-accessible, and then reference them via `img.src`.
+Web accessible resources are images, HTML, CSS, and JavaScript that we include in the extension and want to make accessible to content and page scripts. They can be referenced using a special URI scheme.
 
 ## `storage/storage.js`
 
