@@ -2,6 +2,14 @@
 
 This document serves as the official documentation for this extension as well as my learnings from making this.
 
+## Screenshots
+
+<img width="404" height="286" alt="Screenshot from 2025-07-26 18-09-26" src="https://github.com/user-attachments/assets/c16062c5-f930-4ea2-aac6-7b543884157a" />
+<img width="404" height="307" alt="Screenshot from 2025-07-26 18-08-59" src="https://github.com/user-attachments/assets/d79302b4-fbcb-4d20-999d-54d0444154ba" />
+<img width="404" height="307" alt="Screenshot from 2025-07-26 18-07-45" src="https://github.com/user-attachments/assets/c1012eb7-03f9-40b6-9cd1-71185c9d1832" />
+
+
+
 ## Repo Structure
 
 ```
