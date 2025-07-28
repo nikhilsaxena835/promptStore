@@ -225,7 +225,7 @@ class PromptManager {
 
     hideContextMenu() {
         document.getElementById('contextMenu').style.display = 'none';
-        this.currentEditId = null;
+        //this.currentEditId = null;
     }
 
     openModal(prompt = null) {
@@ -265,10 +265,12 @@ class PromptManager {
             this.showToast('Please fill in both title and content', 'error');
             return;
         }
-
+        
+        const isEditing = this.currentEditId; 
+        
         try {
-            if (this.currentEditId) {
-                await this.storage.updatePrompt(this.currentEditId, { title, content });
+            if (isEditing) {
+                await this.storage.updatePrompt(isEditing, { title, content });
             } else {
                 await this.storage.savePrompt({ title, content });
             }
@@ -276,7 +278,7 @@ class PromptManager {
             this.filteredPrompts = [...this.prompts];
             this.renderPrompts();
             this.closeModal();
-            this.showToast(this.currentEditId ? 'Prompt updated!' : 'Prompt created!');
+            this.showToast(isEditing ? 'Prompt updated!' : 'Prompt created!');
         } catch (error) {
             console.error('Error saving prompt:', error);
             this.showToast('Failed to save prompt', 'error');
